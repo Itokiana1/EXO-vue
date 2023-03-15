@@ -1,0 +1,96 @@
+<template>
+    <div class="left-box" id='account-info'>
+        <div>
+            <h2>User Info</h2>
+        </div>
+        <section class="form" action="">
+            <input type="text" placeholder="Firstname" v-model="form.firstname">
+            <input type="text" placeholder="Lastname" v-model="form.lastname">
+            <input type="text" placeholder="E-mail">
+            <input type="text" placeholder="Age">
+            <input type="text" placeholder="Role">
+            <label for="role">
+                <input type="text" placeholder="Skills">
+                <button class="plus">+</button>
+            </label>
+            <div class="skills"></div>
+            <input type="text" placeholder="Experience Title">
+            <input class="title-descri" type="text" placeholder="Title Description">
+            <input type="text" placeholder="Experience Date">
+            <div class="add">
+                <button class="plus">+</button>
+            </div>
+        </section>
+        <div>
+            <button class="btn-submit">Add User Info</button>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    name: 'AddFormulaire',
+    data() {
+        return {
+            form: {
+                firstname: '',
+                lastname: '',
+                email: '',
+                role: '',
+                age: '',
+                skills: ''
+            }
+        }
+    },
+    methods: {
+        async submit() {
+            this.$emit('submit', this.form)
+        }
+    }
+}
+</script>
+<style scoped>
+.left-box {
+    padding-left: 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 15px;
+}
+
+input {
+    height: 45px;
+    padding-left: 10px;
+    position: relative;
+    font-size: 14px;
+}
+
+.plus {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 0;
+    background: #2444B5;
+    color: white;
+}
+
+.add {
+    height: 45px;
+}
+
+.btn-submit {
+    background: #2444B5;
+    position: relative;
+    width: 183px;
+    height: 45px;
+    color: white;
+    font-weight: 400;
+    margin: 25px;
+}
+
+.title-descri {
+    height: 105px;
+}
+</style>
