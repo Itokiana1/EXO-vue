@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
-    <AddFormulaire />
-    <UserInfo />
+    <AddFormulaire @submit="handleInputData" />
+    <UserInfo v-if="!isShow" :formData="formData" />
   </div>
 </template>
 
@@ -16,13 +16,32 @@ export default {
   },
   data() {
     return {
-
+      formData: {
+        firstname: localStorage.getItem("firstname") || "",
+        lastname: '',
+        age: '',
+        role: '',
+        email: '',
+        experience: '',
+        descri: '',
+        date: '',
+      },
+      isShow: false,
     }
   },
-  methods: {
-
+  watch: {
+    firstname(newValue) {
+      localStorage.setItem("firstname", newValue);
+    }},
+    methods: {
+      handleInputData(formData) {
+        this.formData = formData;
+      },
+      hideForm() {
+        this.formData = !this.formData
+      }
+    }
   }
-}
 </script>
 
 <style scoped>

@@ -5,19 +5,19 @@
                 <div class="ellipse"></div>
                 <div class="parent-descri">
                     <div class="first-lastname">
-                        <p>Firstname</p>
-                        <p>Lastname</p>
+                        <p>{{ formData.firstname }}</p>
+                        <p>{{ formData.lastname }}</p>
                     </div>
-                    <p>hfhfhf@gmail.com</p>
+                    <p>{{ formData.email }}</p>
                 </div>
             </div>
             <div class="role">
-                <img src="" alt="">
-                <p>admin</p>
+                <img class="frame" src="../assets/Frame.png" alt="">
+                <p>{{ formData.role }}</p>
             </div>
             <div class="age">
-                <img src="" alt="">
-                <p>24</p>
+                <img class="frame" src="../assets/Frame(1).png" alt="">
+                <p>{{ formData.age }}</p>
             </div>
         </div>
     </div>
@@ -25,6 +25,7 @@
 <script>
 export default {
     name: 'UserInfo',
+    props: ['formData'],
 }
 </script>
 <style>
@@ -60,9 +61,21 @@ export default {
 
 .role {
     display: flex;
+    margin-top: 15px;
+    align-items: center;
 }
 
 .age {
     display: flex;
+    align-items: center;
+}
+
+.frame {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
 }
 </style>
+
+
+
