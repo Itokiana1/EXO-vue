@@ -9,11 +9,14 @@
             <input type="text" placeholder="E-mail">
             <input type="text" placeholder="Age">
             <input type="text" placeholder="Role">
-            <label for="role">
-                <input type="text" placeholder="Skills">
-                <button class="plus">+</button>
-            </label>
-            <div class="skills"></div>
+            <div>
+                <input v-model="task" type="text" placeholder="Skills">
+                <button @click="submitTask" class="plus">+</button>
+            </div>
+            <div class="skills" v-for="(task, index) in tasks" :key="index">
+                <p class="vue-descri">{{ task.name }}</p>
+                <img class="svg" src="../assets/trash-filled.svg" alt="" @click="deleteTask(index)">
+            </div>
             <input type="text" placeholder="Experience Title">
             <input class="title-descri" type="text" placeholder="Title Description">
             <input type="text" placeholder="Experience Date">
@@ -27,8 +30,12 @@
     </div>
 </template>
 <script>
+
 export default {
     name: 'AddFormulaire',
+    components: {
+    
+    },
     data() {
         return {
             form: {
@@ -38,12 +45,28 @@ export default {
                 role: '',
                 age: '',
                 skills: ''
+            },
+            task:'',
+            tasks: [{ 
+                name: "",
+            },
+            {
+                name: "",
             }
+        ]
         }
     },
     methods: {
         async submit() {
             this.$emit('submit', this.form)
+        },
+        submitTask() {
+            this.tasks.push(this.task)
+
+            this.task ="";
+        },
+        deleteTask(index){
+            this.tasks.splice(index, 1);
         }
     }
 }
@@ -65,6 +88,7 @@ input {
     padding-left: 10px;
     position: relative;
     font-size: 14px;
+    color: #000000;
 }
 
 .plus {
@@ -92,5 +116,14 @@ input {
 
 .title-descri {
     height: 105px;
+}
+
+.skills {
+    display: flex;
+    align-items: center;
+}
+
+.vue-descri {
+    width: 85%;
 }
 </style>
