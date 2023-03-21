@@ -17,11 +17,17 @@
                 <p class="vue-descri">{{ task }}</p>
                 <img class="svg" src="../assets/Frame.svg" alt="" @click="deleteTask(index)">
             </div>
-            <input type="text" placeholder="Experience Title" v-model="formData.experience">
-            <input class="title-descri" type="text" placeholder="Title Description" v-model="formData.descri">
-            <input type="text" placeholder="Experience Date" v-model="formData.date">
+            <div class="form-add">
+                <input type="text" placeholder="Experience Title" v-model="formData.experience">
+                <input class="title-descri" type="text" placeholder="Title Description" v-model="formData.descri">
+                <input type="text" placeholder="Experience Date" v-model="experience">
+            </div>
             <div class="add">
-                <button class="plus">+</button>
+                <button @click="submitExperience" class="plus">+</button>
+            </div>
+            <div v-for="(expo, index) in experiences" :key="index" class="skills">
+                <p class="vue-task">{{ expo.descri }} <br> {{ expo.date }} </p>
+                <img class="svg" src="../assets/Frame.svg" alt="" @click="deleteExperience(index)">
             </div>
         </section>
         <div>
@@ -33,13 +39,10 @@
 
 export default {
     name: 'AddFormulaire',
-    components: {
-
-    },
     data() {
         return {
             formData: {
-                firstname: localStorage.getItem("firstname") || "",
+                firstname: "",
                 lastname: '',
                 email: '',
                 role: '',
@@ -51,13 +54,9 @@ export default {
             },
             task: '',
             tasks: [],
-
+            expo:'',
+            experiences: [],
         }
-    },
-    watch: {
-        firstname(newValue) {
-            localStorage.setItem("firstname", newValue);
-        },
     },
     methods: {
         submitTask() {
@@ -68,8 +67,14 @@ export default {
         },
         handleSubmit() {
             this.$emit('submit', this.formData);
-            //  console.log("submited");
-        }
+            console.log("submited");
+        },
+        submitExperience() {
+            this.experiences.push(this.expo)
+        },
+        deleteExperience(index) {
+            this.experiences.splice(index, 1);
+        },
     }
 }
 </script>
@@ -82,6 +87,12 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
+    gap: 15px;
+}
+
+.form-add {
+    display: flex;
+    flex-direction: column;
     gap: 15px;
 }
 
@@ -128,6 +139,12 @@ input {
 
 .vue-descri {
     width: 73%;
+    background: #DDE3EB;
+    padding: 5px;
+    margin-left: 10px;
+}
+.vue-task {
+    width: 71%;
     background: #DDE3EB;
     padding: 5px;
     margin-left: 10px;

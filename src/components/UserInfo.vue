@@ -1,31 +1,53 @@
 <template>
     <div class="user-info">
-        <div class="info">
+        <div class="info" v-for="(user, index) in users" :key="index">
             <div class="ellipse-background">
                 <div class="ellipse"></div>
                 <div class="parent-descri">
                     <div class="first-lastname">
-                        <p>{{ formData.firstname }}</p>
-                        <p>{{ formData.lastname }}</p>
+                        <p>{{ user.firstname }}</p>
+                        <p>{{ user.lastname }}</p>
                     </div>
-                    <p>{{ formData.email }}</p>
+                    <p>{{ user.email }}</p>
                 </div>
             </div>
             <div class="role">
-                <img class="frame" src="../assets/Frame.png" alt="">
-                <p>{{ formData.role }}</p>
+                <img v-if="showFrame" class="frame" src="../assets/Frame.png" alt="">
+                <p>{{ user.role }}</p>
             </div>
             <div class="age">
-                <img class="frame" src="../assets/Frame(1).png" alt="">
-                <p>{{ formData.age }}</p>
+                <img v-if="showFrame" class="frame" src="../assets/Frame(1).png" alt="">
+                <p>{{ user.age }}</p>
             </div>
+            <div class="skills">
+                <img v-if="showFrame" class="frame" src="../assets/Frame(2).png" alt="">
+                <p>{{ user.skills }}</p>
+            </div>
+            <button @click="handleClick">More</button>
         </div>
     </div>
 </template>
 <script>
+
 export default {
     name: 'UserInfo',
-    props: ['formData'],
+    props: ['users'],
+    data() {
+        return {
+            showFrame: false,
+        }
+    },
+    mounted() {
+        this.showFrame = true;
+    },
+    methods: {
+        toggleFrame() {
+            this.showFrame = !this.showFrame;
+        },
+        handleClick() {
+            this.$emit("openDrawer")
+        }
+    }
 }
 </script>
 <style>
@@ -74,6 +96,18 @@ export default {
     width: 24px;
     height: 24px;
     margin-right: 10px;
+}
+
+.info {
+    position: relative;
+    width: 300px;
+    height: 200px;
+}
+
+.link {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 </style>
 
